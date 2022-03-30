@@ -7,6 +7,8 @@ import weka.core.converters.CSVLoader;
 import java.io.*;
 
 public class Aurreprozesamendua {
+
+
     public static void main(String[] args)throws Exception {
 
         //args[0] --> train.csv
@@ -19,15 +21,17 @@ public class Aurreprozesamendua {
          */
 
         // ** -- CSV garbiketa -- ** //
-        String[] character = {"`", "'", "?"};
-        //for(String x : character) removeCharactersFromFile(args[0], "./Datuak/trainResult.csv", x);
+
+        //String[] character = {"`", "'", "?"};
+        //for(String x : character)
+        removeCharactersFromFile(args[0], "./Datuak/trainResult.csv");
 
            //  load CSV
         try {
 
             CSVLoader loader = new CSVLoader();
-            //loader.setSource(new File("./Datuak/trainResult.csv"));
-            loader.setSource(new File(args[0]));
+            loader.setSource(new File("./Datuak/trainResult.csv"));
+            //loader.setSource(new File(args[0]));
             Instances data = loader.getDataSet();
 
 
@@ -43,13 +47,14 @@ public class Aurreprozesamendua {
         }
     }
 
-    private static void removeCharactersFromFile(String fileName, String fileResult, String subString) throws IOException{
+    private static void removeCharactersFromFile(String fileName, String fileResult) throws IOException{
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             PrintWriter pw = new PrintWriter(fileResult);
             String line;
 
             while ((line = br.readLine()) != null) {
-                line = line.replace(subString, "");
+               // line = line.replace(subString, "");
+                line = line.replaceAll("[`'?]", "");
                 pw.println(line);
             }
             br.close();
